@@ -1,0 +1,12 @@
+---
+- name: Configuration Apache
+  hosts: all
+  become: yes
+  roles:
+    - apache
+
+- name: Configuration Jenkins
+  hosts: host1
+  become: yes
+  roles:
+    - jenkins

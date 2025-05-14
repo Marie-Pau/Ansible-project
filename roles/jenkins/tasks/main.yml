@@ -1,0 +1,29 @@
+---
+- name: Ajouter le repo jenkins
+  get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+    mode: '0644'
+
+- name: Importer la clé GPG de jenkins
+  rpm_key:
+    state: present
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+- name: Installer Java et Jenkins en une seule tache
+  yum:
+    name:
+      - java-17-amazon-corretto
+      - jenkins
+    state: present
+
+- name: S'assurer que jenkins est lancé au boot
+  systemd:
+    name: jenkins
+    enabled: true
+
+- name: Démarrer jenkins
+  systemd:
+    name: jenkins
+    state: started
+  notify: restart jenkins

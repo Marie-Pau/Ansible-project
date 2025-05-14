@@ -1,0 +1,8 @@
+---
+# vars file for roles/apache
+custom_message: >-
+  {% if inventory_hostname == 'host1' %}
+  Hello World 1
+  {% elif inventory_hostname == 'host2' %}
+  Hello World 2
+  {% endif %}
